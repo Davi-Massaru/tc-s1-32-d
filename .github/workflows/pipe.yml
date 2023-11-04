@@ -6,8 +6,6 @@ on:
         paths:
             - '**.java'
             - '**.pom'
-            - '*pipe.yml'
-
 jobs:
     unit-test:
         runs-on: ubuntu-latest
