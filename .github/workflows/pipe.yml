@@ -2,7 +2,10 @@
 on:
     push:
         branches: 
-            master
+            - master
+        paths:
+            - '**.java'
+            - '**.pom'
 
 jobs:
     build:
@@ -18,10 +21,13 @@ jobs:
                 java-version: '17'
             - name: Build project
               run: ./mvnw install -DskipTests && ./mvnw spring-boot:run -pl application
+              
             - name: Login Docker Hub
               run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+              
             - name: Build docker image
               run: docker build -t davimassarumuta/aplicationOnFiap .
+              
             - name: Push image docker
               run: docker push davimassarumuta/aplicationOnFiap
               
